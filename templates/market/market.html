@@ -1,0 +1,70 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'axf/market/css/market.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="market">
+
+        <!--   左侧分类  -->
+        <aside>
+            <ul>
+                {% for food_type in food_types %}
+                    <li>
+                        <a href="{% url 'axf:marketWithParams' typeid=food_type.typeid %}">{{ food_type.typename }}</a>
+                        {% ifequal food_type.typeid typeid %}
+                            <span class="yellowSlide"></span>
+                        {% endifequal %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <!--   右侧导航  -->
+        <section>
+            <nav>
+                <ul>
+                    <li>
+                        <span>全部类型 <span class="glyphicon glyphicon-chevron-down"></span></span>
+                    </li>
+                    <li>
+                        <span>综合排序 <span class="glyphicon glyphicon-chevron-down"></span></span>
+                    </li>
+                </ul>
+            </nav>
+
+            <!--   右侧商品分类展示  -->
+            <menu>
+                <ul>
+                    {% for good in good_list %}
+                        <li>
+                            <a href="">
+                                <img src="{{ good.productimg }}" alt="{{ good.productlongname }}">
+                                <div class="shoppingInfo">
+                                    <h6>{{ good.productlongname }}</h6>
+                                    <p class="detailTag">
+                                        <span>精选</span>
+                                        <span></span>
+                                    </p>
+                                    <p class="unit">{{ good.specifics }}</p>
+                                    <p class="price">
+                                        <span>¥{{ good.price }}</span>
+                                        <s>{{ good.marketprice }}</s>
+                                    </p>
+                                </div>
+                            </a>
+                            <section>
+                                <button class="subShopping">－</button>
+                                <span>0</span>
+                                <button class="addShopping">＋</button>
+                            </section>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </menu>
+        </section>
+    </div>
+{% endblock %}
