@@ -6,11 +6,17 @@
     <link rel="stylesheet" href="{% static 'axf/user/css/user_login.css' %}">
 {% endblock %}
 
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'axf/user/js/login.js' %}"></script>
+{% endblock %}
+
 
 {% block content %}
     <div id="user_login" class="container">
-        <form action="{% url 'axf:login' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'axf:login' %}" method="post" enctype="multipart/form-data" onsubmit="return check_input()">
             {% csrf_token %}
+            <span>{{ msg }}</span>
             <div class="form-group">
                 <label for="exampleInputUsername">用户名</label>
                 <input type="text" class="form-control" id="exampleInputUsername" name="u_username" placeholder="请输入用户名">

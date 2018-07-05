@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{% static 'axf/mine/css/mine.css' %}">
 {% endblock %}
 
+{% block js %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'axf/mine/js/mine.js' %}"></script>
+{% endblock %}
+
 {% block content %}
     <div id="mine">
         <div class="fixed">
@@ -14,7 +19,7 @@
             <span>
                  <!--   登录显示用户头像 -->
                 {% if is_login %}
-                    <img src="http://127.0.0.1:8000/{{ icon }}" alt="{{ username }}">
+                    <img src="{{ icon }}" alt="{{ username }}">
                     <!--   未登录显示默认头像 -->
                 {% else %}
                     <span class="glyphicon glyphicon-user"></span>
