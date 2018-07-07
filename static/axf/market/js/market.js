@@ -49,17 +49,26 @@ $(function () {
     $(".addShopping").click(function () {
 
         console.log("添加到购物车");
+        let $add = $(this);
 
-        var goods_id = $(this).attr("id");
+        let goods_id = $add.attr("id");
 
         // console.log($(this).prop("goodsid"));
 
         // 参数可以直接进行拼接
         // 也可以使用第二个参数传递字典的形式进行参数设置  更推荐使用第二种
-        $.getJSON("/axf/addtocart/", {"goods_id": goodsid}, function (data) {
+        $.getJSON("/axf/addtocart/", {"goods_id": goods_id}, function (data) {
             console.log(data);
 
             //    ajax请求回来之后的操作 写在这
+
+            if(data['status']==='902'){
+                window.open('/axf/login/', target="_self");
+            }else if(data['status']==='201'){
+                console.log('添加成功');
+                $add.prev('span').html(data['cart_num']);
+
+            }
 
         })
 
